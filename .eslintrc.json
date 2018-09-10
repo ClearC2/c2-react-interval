@@ -1,0 +1,9 @@
+{
+  "extends": [
+    "c2-react"
+  ],
+  "globals": {
+    "jest": false,
+    "expect": false
+  }
+}

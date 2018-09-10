@@ -1,0 +1,83 @@
+{
+  "name": "c2-react-interval",
+  "version": "0.0.0",
+  "description": "react interval",
+  "main": "dist/index.js",
+  "scripts": {
+    "start": "cd example && webpack-dev-server --inline --content-base dist --history-api-fallback --port 8083 --mode development",
+    "build": "babel -d dist/ src/ --ignore '**/__tests__'",
+    "build:watch": "babel -w -d dist/ src/",
+    "build:docs": "rm -rf docs/*.js  && rm -rf docs/*.css && cd example && NODE_ENV=production webpack --mode production",
+    "lint": "eslint",
+    "test": "jest",
+    "test:watch": "npm run test -- --watch",
+    "test:report": "nyc --reporter=html npm test",
+    "cm": "git-cz",
+    "semantic-release": "semantic-release"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/test-setup.js"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  },
+  "release": {
+    "branch": "master",
+    "extends": "c2-semantic-release"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "src/**/*.js": "eslint",
+    "test/**/*.js": "eslint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ClearC2/c2-react-interval.git"
+  },
+  "keywords": [
+    "react",
+    "interval",
+    "timeout"
+  ],
+  "author": "Clear C2, Inc.",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ClearC2/c2-react-interval/issues"
+  },
+  "homepage": "https://github.com/ClearC2/c2-react-interval#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-loader": "^7.1.3",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "c2-semantic-release": "ClearC2/c2-semantic-release#^1.0.0",
+    "clean-webpack-plugin": "^0.1.18",
+    "eslint-config-c2-react": "^1.3.0",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
+    "html-webpack-plugin": "^3.0.4",
+    "jest": "^23.6.0",
+    "nyc": "^11.6.0",
+    "prop-types": "^15.6.1",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0",
+    "react-hot-loader": "^4.0.0",
+    "react-testing-library": "^5.0.1",
+    "sinon": "^6.2.0",
+    "webpack": "^4.0.1",
+    "webpack-cli": "^2.0.10",
+    "webpack-dev-server": "^3.1.0"
+  },
+  "peerDependencies": {
+    "react": "^15.0.0 || ^16.0.0",
+    "react-dom": "^15.0.0 || ^16.0.0"
+  }
+}

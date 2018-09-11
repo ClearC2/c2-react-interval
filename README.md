@@ -76,8 +76,9 @@ resolve until the next execution is scheduled.
 ```jsx
 import React from 'react'
 import Interval from 'c2-react-interval'
+import Table from './Table'
 
-class Counter extends React.Component {
+class MyDashboard extends React.Component {
   fetchData = (loginId) => [
     this.props.fetchProjects(loginId),
     this.props.fetchTickets(loginId),
@@ -97,6 +98,53 @@ class Counter extends React.Component {
   }
 }
 ```
+
+Compare the above with how it might be accomplished manually.
+
+```jsx
+import React from 'react'
+import Interval from 'c2-react-interval'
+import Table from './Table'
+
+class MyDashboard extends Component {
+  componentDidMount () {
+    this.fetchDataAndSchedule()
+  }
+  componentDidUpdate (prevProps) {
+    if (prevProps.loginId !== this.props.loginId) {
+      this.fetchDataAndSchedule()
+    }
+  }
+  fetchDataAndSchedule = () => {
+    this.fetchData()
+    this.schedule()
+  }
+  fetchData = () => {
+    const {loginId} = this.props
+    return Promise.all([
+      this.props.fetchTickets(loginId),
+      this.props.fetchTasks(loginId),
+      this.props.fetchThings(loginId)
+    ])
+  }
+  schedule = () => {
+    clearTimeout(this.timeoutId)
+    this.timeoutId = setTimeout(() => {
+      // fetch the data and schedule the future call
+      this.fetchData().finally(this.schedule)
+    }, 300000)
+  }
+  componentWillUnmount () {
+    // make sure we clear the timeout
+    clearTimeout(this.timeoutId)
+  }
+  render () {
+    return <Table data={this.props.data} />
+  }
+}
+```
+The above gets even more complex if you have to keep track of multiple prop arguments and/or have calls that need to be
+scheduled on a different interval.
 
 ## Props
 

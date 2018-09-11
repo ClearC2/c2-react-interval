@@ -1,4 +1,4 @@
-# c2-react-interval
+# c2-react-interval [![CircleCI](https://circleci.com/gh/ClearC2/c2-react-interval.svg?style=svg)](https://circleci.com/gh/ClearC2/c2-react-interval)
 
 A react component to call a function in a recurring interval.
 

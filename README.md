@@ -32,7 +32,14 @@ class Counter extends React.Component {
 }
 ```
 
-### Passing arguments
+## Why not just use `setInterval`?
+A few reasons
+- `setInterval` doesn't immediately execute
+- `setInterval` doesn't execute the function as soon as arguments/props change
+- `setInterval` is promise unaware which can be problematic if the interval should depend on when the promise(s) resolve
+- in React, you need to remember to `clearInterval` on unmount
+
+## Passing arguments
 
 Arguments can be passed via the `args` prop.
 
@@ -68,7 +75,7 @@ class Counter extends React.Component {
 
 If new `args` get passed to the `<Interval />`, the `func` will be immediately executed.
 
-### Promises
+## Promises
 
 The really useful part of `<Interval />` is that you can return an array of promises and the it will wait until all of the promises
 resolve until the next execution is scheduled.
